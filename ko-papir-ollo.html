@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kő-Papír-Olló</title>
+    <style>
+        body{
+            background-image: url('chalkboard2.png');
+            background-size:cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-family: 'Chalkduster', sans-serif;
+            color: wheat;
+        }
+
+        h1{
+            margin-top: 50px;
+            font-family: 'Chalkduster', sans-serif;
+            color: blanchedalmond;
+        }
+
+        #gameContainer {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button{
+            display: inline-block;
+            background-color:bisque;
+            border: snow;
+            color: rgb(0, 0, 0);
+            padding: auto;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: auto;
+            cursor: pointer;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+        }
+        .button:hover{
+            background-color: crimson;
+        }
+
+        #score span{
+            display: block;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; padding: 10px;">Kő-Papír-Olló Játék</h1>
+    <div id="gameContainer">
+        <button class="button"  onclick="playGame('ko')">Kő</button>
+        <button class="button"  onclick="playGame('papir')">Papír</button>
+        <button class="button"  onclick="playGame('ollo')">Olló</button>
+    </div>
+
+    <div id="result" style="text-align: center; margin-top: 20px;"></div>
+    <div id="score">Nyereség<span id="wins">0</span>Vereség<span id="losses">0</span>Döntetlen<span id="draws">0</span></div>
+
+    <script>
+        var wins = 0;
+        var losses = 0;
+        var draws = 0;
+
+        function playGame(jatekosValasztasa) {
+            var valasztasok = ["ko", "papir", "ollo"];
+            var szamitogepValasztasa = valasztasok[Math.floor(Math.random() * valasztasok.length)];
+
+            var result = document.getElementById("result");
+
+            if (jatekosValasztasa === szamitogepValasztasa) {
+                result.textContent = "Döntetlen!";
+                draws++;
+            } else if ((jatekosValasztasa === "ko" && szamitogepValasztasa === "ollo") ||
+                       (jatekosValasztasa === "papir" && szamitogepValasztasa === "ko") ||
+                       (jatekosValasztasa === "ollo" && szamitogepValasztasa === "papir")) {        
+                    result.textContent = "Ügyes.. most elvertél!";
+                    wins++;
+            } else {
+                result.textContent = "Háh.. nem jársz túl az eszemen!";
+                losses++;
+            }
+
+            updateScore();
+        }
+
+        function updateScore(){
+            document.getElementById("wins").textContent = wins;
+            document.getElementById("losses").textContent = losses;
+            document.getElementById("draws").textContent = draws;
+
+        }
+    </script>
+</body>
+</html>
